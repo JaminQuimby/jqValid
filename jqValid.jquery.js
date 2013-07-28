@@ -7,17 +7,31 @@ jqValid=function(params){
 var options = {
 	"type":"", //Type of validation
 	"object":"", //element name or element
-	"message":""//Message to return	
+	"message":"",//Message to return
+	"link":""//add a help link
 	};
 // Extending array from params
 $.extend(true, options, params);
 if(typeof options["object"]=="object"){var obj=$(options["object"])}else{var obj="#"+$(options["object"])}
 if(_isIt(options['type'],obj.val())){
-obj.removeClass("valid_off").addClass("valid_on").next('.help').text("&nbsp;").css({borderRightColor:'rgb(153, 153, 153);',borderRightStyle:'solid',borderRightStyle:'1px'})}
-else{obj.removeClass("valid_on").addClass("valid_off").css({borderRightColor:'rgb(0, 0, 153);',borderRightStyle:'solid',borderRightStyle:'5px'})
-var container = '<span class="help">'+options['message']+'<span>';
-if(obj.next('.help').length === 0){obj.parent().children(':last').after(container)}
-obj.next('.help').append(container).text(options["message"])}}
+
+//Add green light, remove helper message
+if(obj.parent().children('.chzn-container').length>-1){obj.parent().children('.chzn-container').removeClass("jqHelp_off").addClass("jqHelp_on")}//plugin for chosen
+obj.removeClass("jqHelp_off").addClass("jqHelp_on").parent().children('.jqHelp').remove()}
+
+else{
+//Add red light, add helper object	
+if(obj.parent().children('.chzn-container').length>-1){obj.parent().children('.chzn-container').removeClass("jqHelp_on").addClass("jqHelp_off")}//plugin for chosen
+	obj.removeClass("jqHelp_on").addClass("jqHelp_off");
+var container = '<span class="jqHelp">'+options['message']+'<span>';
+
+//If help object does not exsist add it
+if(obj.parent().children('.jqHelp').length>-1){obj.parent().children(':last').after(container)}
+//append the helper object message	
+obj.parent().children('.jqHelp').append(container).text(options["message"])
+
+}
+}
 	
 
 _isIt=function(it,is){
