@@ -16,12 +16,12 @@ if(typeof options["object"]=="object"){var obj=$(options["object"])}else{var obj
 if(_isIt(options['type'],obj.val())){
 
 //Add green light, remove helper message
-if(obj.parent().children('.chzn-container').length>-1){obj.parent().children('.chzn-container').removeClass("jqHelp_off").addClass("jqHelp_on")}//plugin for chosen
+if(obj.parent().children('.chzn-container').length>-1){obj.parent().children('.chzn-container').children(':first-child').removeClass("jqHelp_off").addClass("jqHelp_on")}//plugin for chosen
 obj.removeClass("jqHelp_off").addClass("jqHelp_on").parent().children('.jqHelp').remove()}
 
 else{
 //Add red light, add helper object	
-if(obj.parent().children('.chzn-container').length>-1){obj.parent().children('.chzn-container').removeClass("jqHelp_on").addClass("jqHelp_off")}//plugin for chosen
+if(obj.parent().children('.chzn-container').length>-1){obj.parent().children('.chzn-container').children(':first-child').removeClass("jqHelp_on").addClass("jqHelp_off")}//plugin for chosen
 	obj.removeClass("jqHelp_on").addClass("jqHelp_off");
 var container = '<span class="jqHelp">'+options['message']+'<span>';
 
